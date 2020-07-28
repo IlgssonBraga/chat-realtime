@@ -13,17 +13,13 @@ app.get('/', (req, res) => {
   res.render('../public/index.html');
 });
 
-let count = 0;
-
 io.on('connection', socket => {
   console.log('New web socket connection');
 
-  socket.emit('countUpdated', count);
+  socket.emit('message', 'Welcome!');
 
-  socket.on('increment', () => {
-    count += 1;
-
-    io.emit('countUpdated', count);
+  socket.on('sendMessage', message => {
+    io.emit('message', message);
   });
 });
 

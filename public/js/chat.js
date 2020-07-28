@@ -1,11 +1,12 @@
 /* eslint-disable no-undef */
 const socket = io();
 
-socket.on('countUpdated', count => {
-  console.log('Count updated!', count);
+socket.on('message', message => {
+  console.log(message);
 });
 
-document.querySelector('#increment').addEventListener('click', () => {
-  console.log('Clicked');
-  socket.emit('increment');
+document.querySelector('#form-message').addEventListener('submit', e => {
+  e.preventDefault();
+  const message = e.target.elements.message.value;
+  socket.emit('sendMessage', message);
 });

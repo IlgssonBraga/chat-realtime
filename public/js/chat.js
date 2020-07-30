@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable consistent-return */
 /* eslint-disable no-undef */
 
@@ -14,6 +15,13 @@ const sendButton = document.querySelector('#send-location');
 
 const messageTemplate = document.querySelector('#message-template').innerHTML;
 const locationTemplate = document.querySelector('#location-template').innerHTML;
+
+// const { username, room } = qs.parse(location.search, {
+//   ignoreQueryPrefix: true,
+// });
+
+const username = location.search.substring(1).split('&')[0].split('=')[1];
+const room = location.search.substring(1).split('&')[1].split('=')[1];
 
 socket.on('message', message => {
   console.log(message);
@@ -75,3 +83,5 @@ sendButton.addEventListener('click', () => {
     });
   });
 });
+
+socket.emit('join', { username, room });

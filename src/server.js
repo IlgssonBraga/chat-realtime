@@ -18,11 +18,17 @@ app.get('/', (req, res) => {
 io.on('connection', socket => {
   console.log('New web socket connection');
 
-  socket.emit('message', generateMessage('Welcome'));
-  socket.broadcast.emit(
-    'message',
-    generateMessage('A new user has joined to the chat!'),
-  );
+  socket.on('join', ({ username, room }) => {
+    socket.join(room);
+
+    socket.emit('message', generateMessage('Welcome'));
+    socket.broadcast
+      .to(room)
+      .emit('message', generateMessage(`${username} has joined!`));
+  });
+
+  // socket.emit, io.emit, socket.broadcast.emit
+  // io.to.emit, socket.broadcast.to.emit
 
   // eslint-disable-next-line consistent-return
   socket.on('sendMessage', (message, callback) => {
@@ -32,7 +38,7 @@ io.on('connection', socket => {
       return callback('Palavras impróprias não são permitidas!');
     }
 
-    io.emit('message', generateMessage(message));
+    io.to('1').emit('message', generateMessage(message));
     callback();
   });
 

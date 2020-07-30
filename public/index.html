@@ -8,51 +8,17 @@
     <link rel="stylesheet" href="/css/styles.min.css">
   </head>
   <body>
-    <div class="chat">
-      <div class="chat__sidebar"></div>
-      <div class="chat__main">
-        <div id="messages" class="chat__messages"></div>
-
-        <div class="compose">
-          <form id="form-message">
-            <input placeholder="Digite sua mensagem..." name="message" />
-            <button id="sendMessage" type="submit">Enviar</button>
-          </form>
-      
-          <button id="send-location"> 
-            Enviar localização
-          </button>
-        </div>
-
-    
-
+    <div class="centered-form">
+      <div class="centered-form__box">
+        <h1>Junte-se ao chat</h1>
+        <form action="/chat.html">
+          <label>Digite seu nome</label>
+          <input type="text" name="username" placeholder="Seu nome" required/>
+          <label>Sala</label>
+          <input type="text" name="room" placeholder="Digite a sala" required/>
+          <button type="submit">Entrar</button>
+        </form>
       </div>
     </div>
-
-    <script id="message-template" type="text/html">
-      <div class="message">
-        <p>
-          <span class="message__name">Ilgsson</span>
-          <span class="message__meta">{{createdAt}}</span>
-        </p>
-        <p>{{message}}</p>
-      </div>
-    </script>
-
-    <script id="location-template" type="text/html">
-      <div class="message">
-        <p>
-          <span class="message__name">Ilgsson</span>
-          <span class="message__meta">{{createdAt}}</span>
-        </p>
-        <p><a href="{{url}}" target="_blank">My current location</a></p>
-      </div>
-    </script>
-
   </body>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="js/chat.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
 </html>

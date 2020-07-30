@@ -3,7 +3,7 @@ import http from 'http';
 import socketio from 'socket.io';
 import path from 'path';
 import Filter from 'bad-words';
-import { generateMessage } from './utils/messages';
+import { generateMessage, generateLocationMessage } from './utils/messages';
 
 const app = express();
 const server = http.createServer(app);
@@ -43,7 +43,9 @@ io.on('connection', socket => {
   socket.on('sendLocation', ({ latitude, longitude }, callback) => {
     io.emit(
       'locationMessage',
-      `https://www.google.com.br/maps?q=${latitude},${longitude}`,
+      generateLocationMessage(
+        `https://www.google.com.br/maps?q=${latitude},${longitude}`,
+      ),
     );
 
     callback();

@@ -35,6 +35,7 @@ const addUser = ({ id, username, room }) => {
   return { user };
 };
 
+// eslint-disable-next-line consistent-return
 const removeUser = id => {
   const index = users.findIndex(user => user.id === id);
 
@@ -56,24 +57,4 @@ const getUsersInRoom = room => {
   return usersRoom;
 };
 
-addUser({
-  id: 1,
-  username: 'Ilgsson',
-  room: '1',
-});
-
-addUser({
-  id: 2,
-  username: 'Ilgner',
-  room: '1',
-});
-
-addUser({
-  id: 3,
-  username: 'Arlaine',
-  room: '2',
-});
-
-// console.log(getUser(3));
-
-console.log(getUsersInRoom('2'));
+export { addUser, removeUser, getUser, getUsersInRoom };

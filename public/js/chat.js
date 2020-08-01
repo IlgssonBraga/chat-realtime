@@ -28,6 +28,7 @@ const autoscroll = () => {
   const newMessage = messages.lastElementChild;
 
   const newMessageStyles = getComputedStyle(newMessage);
+  // eslint-disable-next-line radix
   const newMessageMargin = parseInt(newMessageStyles.marginBottom);
   const newMessageHeight = newMessage.offsetHeight + newMessageMargin;
 

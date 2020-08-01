@@ -57,4 +57,4 @@ const getUsersInRoom = room => {
   return usersRoom;
 };
 
-export { addUser, removeUser, getUser, getUsersInRoom };
+module.exports = { addUser, removeUser, getUser, getUsersInRoom };

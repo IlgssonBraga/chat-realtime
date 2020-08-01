@@ -1,11 +1,19 @@
 /* eslint-disable consistent-return */
-import express from 'express';
-import http from 'http';
-import socketio from 'socket.io';
-import path from 'path';
-import Filter from 'bad-words';
-import { generateMessage, generateLocationMessage } from './utils/messages';
-import { addUser, getUser, removeUser, getUsersInRoom } from './utils/users';
+const express = require('express');
+const http = require('http');
+const socketio = require('socket.io');
+const path = require('path');
+const Filter = require('bad-words');
+const {
+  generateMessage,
+  generateLocationMessage,
+} = require('./utils/messages');
+const {
+  addUser,
+  getUser,
+  removeUser,
+  getUsersInRoom,
+} = require('./utils/users');
 
 const app = express();
 const server = http.createServer(app);

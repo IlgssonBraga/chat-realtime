@@ -14,4 +14,4 @@ const generateLocationMessage = (username, url) => {
   };
 };
 
-export { generateMessage, generateLocationMessage };
+module.exports = { generateMessage, generateLocationMessage };

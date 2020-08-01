@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import express from 'express';
 import http from 'http';
 import socketio from 'socket.io';
@@ -28,10 +29,13 @@ io.on('connection', socket => {
 
     socket.join(user.room);
 
-    socket.emit('message', generateMessage('Welcome'));
+    socket.emit('message', generateMessage('Admin', 'Welcome'));
     socket.broadcast
       .to(user.room)
-      .emit('message', generateMessage(`${user.username} has joined!`));
+      .emit(
+        'message',
+        generateMessage('Admin', `${user.username} has joined!`),
+      );
 
     callback();
   });
@@ -39,15 +43,16 @@ io.on('connection', socket => {
   // socket.emit, io.emit, socket.broadcast.emit
   // io.to.emit, socket.broadcast.to.emit
 
-  // eslint-disable-next-line consistent-return
   socket.on('sendMessage', (message, callback) => {
     const filter = new Filter();
+
+    const user = getUser(socket.id);
 
     if (filter.isProfane(message)) {
       return callback('Palavras impróprias não são permitidas!');
     }
 
-    io.to('1').emit('message', generateMessage(message));
+    io.to(user.room).emit('message', generateMessage(user.username, message));
     callback();
   });
 
@@ -57,15 +62,18 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        generateMessage(`${user.username} has left!`),
+        generateMessage('Admin', `${user.username} has left!`),
       );
     }
   });
 
   socket.on('sendLocation', ({ latitude, longitude }, callback) => {
-    io.emit(
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit(
       'locationMessage',
       generateLocationMessage(
+        user.username,
         `https://www.google.com.br/maps?q=${latitude},${longitude}`,
       ),
     );

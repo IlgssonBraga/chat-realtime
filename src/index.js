@@ -99,6 +99,6 @@ io.on('connection', socket => {
   });
 });
 
-server.listen(3333, () =>
-  console.log('Server running on http://localhost:3333 ...'),
-);
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => console.log('Server running! ...'));

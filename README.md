@@ -36,6 +36,8 @@ $ cd chat-realtime
 
 Now, enjoy!!! :rocket::rocket:
 
+You can see the preview on: [Chat Real Time](https://ilgsson-chat-realtime.herokuapp.com/)
+
 # :memo: License
 
 This project is under MIT license. Look [License](LICENSE.md) for more details!

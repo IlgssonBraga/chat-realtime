@@ -1,4 +1,5 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true});const users = [];
+Object.defineProperty(exports, '__esModule', { value: true });
+const users = [];
 
 const addUser = ({ id, username, room }) => {
   // eslint-disable-next-line
@@ -57,4 +58,7 @@ const getUsersInRoom = room => {
   return usersRoom;
 };
 
-exports.addUser = addUser; exports.removeUser = removeUser; exports.getUser = getUser; exports.getUsersInRoom = getUsersInRoom;
+exports.addUser = addUser;
+exports.removeUser = removeUser;
+exports.getUser = getUser;
+exports.getUsersInRoom = getUsersInRoom;

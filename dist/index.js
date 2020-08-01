@@ -1,17 +1,31 @@
-"use strict"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }/* eslint-disable consistent-return */
-var _express = require('express'); var _express2 = _interopRequireDefault(_express);
-var _http = require('http'); var _http2 = _interopRequireDefault(_http);
-var _socketio = require('socket.io'); var _socketio2 = _interopRequireDefault(_socketio);
-var _path = require('path'); var _path2 = _interopRequireDefault(_path);
-var _badwords = require('bad-words'); var _badwords2 = _interopRequireDefault(_badwords);
-var _messages = require('./utils/messages');
-var _users = require('./utils/users');
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+} /* eslint-disable consistent-return */
+const _express = require('express');
 
-const app = _express2.default.call(void 0, );
+const _express2 = _interopRequireDefault(_express);
+const _http = require('http');
+
+const _http2 = _interopRequireDefault(_http);
+const _socketio = require('socket.io');
+
+const _socketio2 = _interopRequireDefault(_socketio);
+const _path = require('path');
+
+const _path2 = _interopRequireDefault(_path);
+const _badwords = require('bad-words');
+
+const _badwords2 = _interopRequireDefault(_badwords);
+const _messages = require('./utils/messages');
+const _users = require('./utils/users');
+
+const app = _express2.default.call(void 0);
 const server = _http2.default.createServer(app);
 const io = _socketio2.default.call(void 0, server);
 
-app.use(_express2.default.static(_path2.default.resolve(__dirname, '..', 'public')));
+app.use(
+  _express2.default.static(_path2.default.resolve(__dirname, '..', 'public')),
+);
 
 app.get('/', (req, res) => {
   res.render('../public/index.html');
@@ -21,7 +35,10 @@ io.on('connection', socket => {
   console.log('New web socket connection');
 
   socket.on('join', (options, callback) => {
-    const { error, user } = _users.addUser.call(void 0, { id: socket.id, ...options });
+    const { error, user } = _users.addUser.call(void 0, {
+      id: socket.id,
+      ...options,
+    });
 
     if (error) {
       return callback(error);
@@ -29,12 +46,19 @@ io.on('connection', socket => {
 
     socket.join(user.room);
 
-    socket.emit('message', _messages.generateMessage.call(void 0, 'Admin', 'Welcome'));
+    socket.emit(
+      'message',
+      _messages.generateMessage.call(void 0, 'Admin', 'Welcome'),
+    );
     socket.broadcast
       .to(user.room)
       .emit(
         'message',
-        _messages.generateMessage.call(void 0, 'Admin', `${user.username} has joined!`),
+        _messages.generateMessage.call(
+          void 0,
+          'Admin',
+          `${user.username} has joined!`,
+        ),
       );
 
     io.to(user.room).emit('roomData', {
@@ -57,7 +81,10 @@ io.on('connection', socket => {
       return callback('Palavras impróprias não são permitidas!');
     }
 
-    io.to(user.room).emit('message', _messages.generateMessage.call(void 0, user.username, message));
+    io.to(user.room).emit(
+      'message',
+      _messages.generateMessage.call(void 0, user.username, message),
+    );
     callback();
   });
 
@@ -67,7 +94,11 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        _messages.generateMessage.call(void 0, 'Admin', `${user.username} has left!`),
+        _messages.generateMessage.call(
+          void 0,
+          'Admin',
+          `${user.username} has left!`,
+        ),
       );
       io.to(user.room).emit('roomData', {
         room: user.room,
@@ -81,7 +112,8 @@ io.on('connection', socket => {
 
     io.to(user.room).emit(
       'locationMessage',
-      _messages.generateLocationMessage.call(void 0, 
+      _messages.generateLocationMessage.call(
+        void 0,
         user.username,
         `https://www.google.com.br/maps?q=${latitude},${longitude}`,
       ),

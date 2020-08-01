@@ -1,4 +1,5 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true});const generateMessage = (username, text) => {
+Object.defineProperty(exports, '__esModule', { value: true });
+const generateMessage = (username, text) => {
   return {
     username,
     text,
@@ -14,4 +15,5 @@ const generateLocationMessage = (username, url) => {
   };
 };
 
-exports.generateMessage = generateMessage; exports.generateLocationMessage = generateLocationMessage;
+exports.generateMessage = generateMessage;
+exports.generateLocationMessage = generateLocationMessage;

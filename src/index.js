@@ -44,12 +44,14 @@ io.on('connection', socket => {
     socket.join(user.room);
 
     socket.emit('message', generateMessage('Admin', 'Welcome'));
-    socket.broadcast
-      .to(user.room)
-      .emit(
-        'message',
-        generateMessage('Admin', `${user.username} has joined!`),
-      );
+    socket.broadcast.to(user.room).emit(
+      'message',
+      generateMessage(
+        'Admin',
+        // eslint-disable-next-line no-underscore-dangle
+        `${user.username} ${socket.request.connection._peername}  has joined!`,
+      ),
+    );
 
     io.to(user.room).emit('roomData', {
       room: user.room,

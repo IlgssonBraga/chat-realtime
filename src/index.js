@@ -33,6 +33,8 @@ app.get('/', (req, res) => {
 io.on('connection', socket => {
   // eslint-disable-next-line no-underscore-dangle
   console.log('connection :', socket.request.connection._peername);
+  const namez = socket.request.connection.remoteAddress;
+  console.log(namez);
 
   socket.on('join', (options, callback) => {
     const { error, user } = addUser({ id: socket.id, ...options });
@@ -49,7 +51,7 @@ io.on('connection', socket => {
       generateMessage(
         'Admin',
         // eslint-disable-next-line no-underscore-dangle
-        `${user.username} ${socket.request.connection._peername.address}  has joined!`,
+        `${user.username} ${namez}  has joined!`,
       ),
     );
 

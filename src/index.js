@@ -49,7 +49,7 @@ io.on('connection', socket => {
       generateMessage(
         'Admin',
         // eslint-disable-next-line no-underscore-dangle
-        `${user.username} ${socket.request.connection._peername}  has joined!`,
+        `${user.username} ${socket.request.connection._peername.address}  has joined!`,
       ),
     );
 

@@ -25,8 +25,14 @@ app.get('/', (req, res) => {
   res.render('../public/index.html');
 });
 
+// client.on('connection', socket => {
+//   const clientIpAddress = socket.request.socket.remoteAddress;
+//   console.log(clientIpAddress);
+// });
+
 io.on('connection', socket => {
-  console.log('New web socket connection');
+  // eslint-disable-next-line no-underscore-dangle
+  console.log('connection :', socket.request.connection._peername);
 
   socket.on('join', (options, callback) => {
     const { error, user } = addUser({ id: socket.id, ...options });
